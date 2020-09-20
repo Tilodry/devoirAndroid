@@ -14,7 +14,6 @@ import yannroubeau.cgmatane.bibliotheque1.modele.Cours;
 public class CoursDAO {
 
     private static CoursDAO instance = null;
-    //private List<HashMap<String,String>> listeCours;
     private List<Cours> listeCours;
 
     private BaseDeDonnees baseDeDonnees;
@@ -22,38 +21,7 @@ public class CoursDAO {
     private CoursDAO()
     {
         this.baseDeDonnees = BaseDeDonnees.getInstance();
-        //listeCours = new ArrayList<HashMap<String, String>>();
         listeCours = new ArrayList<Cours>();
-        //preparerListeCours();
-    }
-
-    private void preparerListeCours()
-    {
-        //List<HashMap<String,String>> listeLivre = new ArrayList<HashMap<String,String>>();
-
-        /*HashMap<String,String> cours;
-
-        cours = new HashMap<String,String>();
-        cours.put("titre","Android pour les nuls");
-        cours.put("heure","Département d'informatique");
-        listeCours.add(cours);
-
-        cours = new HashMap<String,String>();
-        cours.put("titre","The Hobbit");
-        cours.put("heure","Tolkien");
-        listeCours.add(cours);
-
-        cours = new HashMap<String,String>();
-        cours.put("titre","Harry Potter");
-        cours.put("heure","J.K.Rowling");
-        listeCours.add(cours);*/
-
-        listeCours.add(new Cours("Android pour les nuls", "Départements informatique", 0));
-        listeCours.add(new Cours("The Hobbit", "Tolkien", 1));
-        listeCours.add(new Cours("Harry Potter", "J.K.Rowling", 2));
-
-
-
     }
 
     public static CoursDAO getInstance()
@@ -65,16 +33,10 @@ public class CoursDAO {
 
         return instance;
     }
-    /*
-    public List<Cours> listerCours()
-    {
-        return listeCours;
-    }
-    */
 
     public List<Cours> listerCours()
     {
-        String LISTER_COURS = "SELECT * FROM cours";
+        String LISTER_COURS = "SELECT * FROM cours ORDER BY substr('00000'||cours.heure, -5, 5)";
         Cursor curseur = baseDeDonnees.getReadableDatabase().rawQuery(LISTER_COURS,null);
         this.listeCours.clear();
         Cours cours;
@@ -94,18 +56,29 @@ public class CoursDAO {
 
         return listeCours;
     }
-    /*
-    public void ajouterCours(HashMap<String,String> cours)
-    {
-        //listeCours.add(cours);
-    }
 
-     */
-
-    public void ajouterCours (Cours cours)
+    public void modifierCours (Cours cours)
     {
         SQLiteDatabase baseDeDonneesEcriture = baseDeDonnees.getWritableDatabase();
 
+        baseDeDonneesEcriture.beginTransaction();
+        try {
+            ContentValues coursEnCleValeur = new ContentValues();
+            coursEnCleValeur.put("heure", cours.getHeure());
+            coursEnCleValeur.put("titre", cours.getTitre());
+            baseDeDonneesEcriture.update("cours",coursEnCleValeur,"id="+cours.getId(), null );
+            baseDeDonneesEcriture.setTransactionSuccessful();
+        } catch(Exception e)
+        {
+            Log.d("CoursDAO", "Erreur en tentant de modifier un cours dans la base de donnée");
+        } finally {
+            baseDeDonneesEcriture.endTransaction();
+        }
+    }
+
+    public void ajouterCours(Cours cours)
+    {
+        SQLiteDatabase baseDeDonneesEcriture = baseDeDonnees.getWritableDatabase();
         baseDeDonneesEcriture.beginTransaction();
         try {
             ContentValues coursEnCleValeur = new ContentValues();
@@ -117,6 +90,21 @@ public class CoursDAO {
         } catch(Exception e)
         {
             Log.d("CoursDAO", "Erreur en tentant d'ajouter un cours dans la base de donnée");
+        } finally {
+            baseDeDonneesEcriture.endTransaction();
+        }
+    }
+
+    public void supprimerCours(int id)
+    {
+        SQLiteDatabase baseDeDonneesEcriture = baseDeDonnees.getWritableDatabase();
+        baseDeDonneesEcriture.beginTransaction();
+        try {
+            baseDeDonneesEcriture.delete("cours","id="+id,null);
+            baseDeDonneesEcriture.setTransactionSuccessful();
+        } catch(Exception e)
+        {
+            Log.d("CoursDAO", "Erreur en tentant de supprimer un cours dans la base de donnée");
         } finally {
             baseDeDonneesEcriture.endTransaction();
         }

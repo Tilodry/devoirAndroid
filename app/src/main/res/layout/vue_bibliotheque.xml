@@ -8,8 +8,8 @@
 
     <ListView
         android:id="@+id/vueBibliothequeListeCours"
-        android:layout_width="422dp"
-        android:layout_height="524dp"
+        android:layout_width="400dp"
+        android:layout_height="542dp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/vueBibliothequeListeCoursActionAjouterCours"
         app:layout_constraintEnd_toEndOf="parent"

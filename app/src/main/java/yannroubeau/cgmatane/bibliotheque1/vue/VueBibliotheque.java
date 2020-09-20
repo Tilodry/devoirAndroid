@@ -30,6 +30,7 @@ public class VueBibliotheque extends AppCompatActivity {
     protected Intent intentionNaviguerModifierCours;
 
     static final public int ACTIVITE_AJOUTER_COURS = 1;
+    static final public int ACTIVITE_MODIFIER_COURS = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +41,6 @@ public class VueBibliotheque extends AppCompatActivity {
 
         BaseDeDonnees.getInstance(getApplicationContext());
         coursDAO = CoursDAO.getInstance();
-        /*listeLivre = livreDAO.listerLivre();
-
-        SimpleAdapter adapteur = new SimpleAdapter(
-                this,
-                listeLivre,
-                android.R.layout.two_line_list_item,
-                new String[]{"titre","auteur"},
-                new int[] {android.R.id.text1, android.R.id.text2});
-
-        vueBibliothequeListeLivre.setAdapter(adapteur);*/
 
         afficherListeCours();
 
@@ -80,16 +71,11 @@ public class VueBibliotheque extends AppCompatActivity {
                         ListView vueListeCours = (ListView)vue.getParent();
 
                         @SuppressWarnings("unchecked")
-                        HashMap<String,String> livre =
+                        HashMap<String,String> cours =
                                 (HashMap<String,String>)
                                         vueListeCours.getItemAtPosition((int)positionItem);
-
-                        /*Toast message  = Toast.makeText(getApplicationContext(),
-                                "Position "+positionItem + " titre "+livre.get("titre"),
-                                Toast.LENGTH_SHORT);
-                        message.show();*/
-
-                        startActivity(intentionNaviguerModifierCours);
+                        intentionNaviguerModifierCours.putExtra("id", cours.get("id"));
+                        startActivityForResult(intentionNaviguerModifierCours,ACTIVITE_MODIFIER_COURS);
 
                     }
                 }
@@ -102,6 +88,10 @@ public class VueBibliotheque extends AppCompatActivity {
         switch(activite)
         {
             case ACTIVITE_AJOUTER_COURS:
+                afficherListeCours();
+                break;
+
+            case ACTIVITE_MODIFIER_COURS:
                 afficherListeCours();
                 break;
 
@@ -129,28 +119,4 @@ public class VueBibliotheque extends AppCompatActivity {
 
         vueBibliothequeListeCours.setAdapter(adapteur);
     }
-
-    /*public List<HashMap<String,String>> prepareListeLivre()
-    {
-        List<HashMap<String,String>> listeLivre = new ArrayList<HashMap<String,String>>();
-
-        HashMap<String,String> livre;
-
-        livre = new HashMap<String,String>();
-        livre.put("titre","Android pour les nuls");
-        livre.put("auteur","Département d'informatique");
-        listeLivre.add(livre);
-
-        livre = new HashMap<String,String>();
-        livre.put("titre","The Hobbit");
-        livre.put("auteur","Tolkien");
-        listeLivre.add(livre);
-
-        livre = new HashMap<String,String>();
-        livre.put("titre","Harry Potter");
-        livre.put("auteur","J.K.Rowling");
-        listeLivre.add(livre);
-
-        return listeLivre;
-    }*/
 }

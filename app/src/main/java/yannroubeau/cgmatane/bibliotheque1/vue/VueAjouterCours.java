@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import java.util.Calendar;
-import java.util.HashMap;
 
 import yannroubeau.cgmatane.bibliotheque1.R;
 import yannroubeau.cgmatane.bibliotheque1.donnee.CoursDAO;
@@ -64,22 +62,16 @@ public class VueAjouterCours extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void enregistrerCours()
     {
-        /*
-        HashMap<String,String> cours;
-        cours = new HashMap<String,String>();
-        cours.put("titre", vueAjouterCoursChampTitre.getText().toString());
-        cours.put("heure", vueAjouterCoursChampHeure.getHour() + "h" + vueAjouterCoursChampHeure.getMinute());
-        coursDAO = CoursDAO.getInstance();
-        coursDAO.ajouterCours(cours);
+        if(vueAjouterCoursChampTitre.getText().toString()!= "")
+        {
+            Cours cours = new Cours(vueAjouterCoursChampTitre.getText().toString(),
+                    vueAjouterCoursChampHeure.getHour() + ":" + vueAjouterCoursChampHeure.getMinute(),0);
 
-         */
+            coursDAO = CoursDAO.getInstance();
 
-        Cours cours = new Cours(vueAjouterCoursChampTitre.getText().toString(),
-                vueAjouterCoursChampHeure.getHour() + "h" + vueAjouterCoursChampHeure.getMinute(),0);
+            coursDAO.ajouterCours(cours);
+        }
 
-        coursDAO = CoursDAO.getInstance();
-
-        coursDAO.ajouterCours(cours);
     }
 
     public void naviguerRetourBibliotheque()

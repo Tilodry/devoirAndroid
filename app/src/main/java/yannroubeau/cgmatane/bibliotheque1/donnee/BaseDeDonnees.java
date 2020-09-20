@@ -39,16 +39,16 @@ public class BaseDeDonnees extends SQLiteOpenHelper {
     @Override
     public void onOpen(SQLiteDatabase db)
     {
-        /*String DELETE = "delete from cours where 1 = 1";
+        String DELETE = "delete from cours where 1 = 1";
         db.execSQL(DELETE);
 
-        String INSERT_1 = "insert into cours(titre, heure) VALUES('Le Hobbit', 'Tolkien')";
-        String INSERT_2 = "insert into cours(titre, heure) VALUES('Rénover sa maison', 'Auteurs variés')";
-        String INSERT_3 = "insert into cours(titre, heure) VALUES('Ender Games', 'Orson Scott Card')";
+        String INSERT_1 = "insert into cours(titre, heure) VALUES('Programmtion de monde virtuel', '8:00')";
+        String INSERT_2 = "insert into cours(titre, heure) VALUES('Littérature québécoise', '12:35')";
+        String INSERT_3 = "insert into cours(titre, heure) VALUES('Langue anglaise', '15:20')";
 
         db.execSQL(INSERT_1);
         db.execSQL(INSERT_2);
-        db.execSQL(INSERT_3);*/
+        db.execSQL(INSERT_3);
 
     }
 

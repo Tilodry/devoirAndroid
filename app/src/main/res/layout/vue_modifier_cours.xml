@@ -64,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/vueModifierCoursActionAjouter"
+        android:id="@+id/vueModifierCoursActionModifier"
         android:layout_width="136dp"
         android:layout_height="89dp"
         android:background="@android:color/holo_green_light"
@@ -86,5 +86,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <Button
+        android:id="@+id/vueModifierCoursActionSupprimer"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:drawable/ic_menu_delete"
+        app:layout_constraintBottom_toTopOf="@+id/vueModifierCoursChampTitre"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

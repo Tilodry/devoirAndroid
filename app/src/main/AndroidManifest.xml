@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".vue.VueModifierLivre"></activity>
-        <activity android:name=".vue.VueAjouterLivre" />
+        <activity android:name=".vue.VueModifierCours"></activity>
+        <activity android:name=".vue.VueAjouterCours" />
         <activity android:name=".vue.VueBibliotheque">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

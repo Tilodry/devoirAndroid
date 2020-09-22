@@ -18,7 +18,6 @@ public class CoursDAO {
 
     private static CoursDAO instance = null;
     private List<Cours> listeCours;
-
     private BaseDeDonnees baseDeDonnees;
 
     private CoursDAO()

@@ -53,12 +53,18 @@ public class VueModifierCours extends AppCompatActivity {
         vueModifierCoursChampHeure = (TimePicker) findViewById(R.id.vueModifierCoursChampAuteur);
         vueModifierCoursChampTitre.setText(cours.getTitre());
         String heure;
-        if(cours.getHeure().length() < 5)
+        if(cours.getHeure().length() < 5 )
         {
             heure = "0" + cours.getHeure().substring(0,1);
         } else heure = cours.getHeure().substring(0,2);
         vueModifierCoursChampHeure.setHour(Integer.parseInt(heure));
-        vueModifierCoursChampHeure.setMinute(Integer.parseInt(cours.getHeure().substring(cours.getHeure().length()-2)));
+        int i;
+        try {
+            i = Integer.parseInt(cours.getHeure().substring(cours.getHeure().length()-2));
+        } catch( NumberFormatException e){
+            i = Integer.parseInt(cours.getHeure().substring(cours.getHeure().length()-1));
+        }
+        vueModifierCoursChampHeure.setMinute(i);
 
         Button vueModifierCoursActionModifier = (Button)findViewById(R.id.vueModifierCoursActionModifier);
 
@@ -68,7 +74,7 @@ public class VueModifierCours extends AppCompatActivity {
                 {
                     public void onClick(View arg0)
                     {
-                        enregistrerCours(cours.getId());
+                        enregistrerCours();
                         naviguerRetourBibliotheque();
                     }
 
@@ -94,12 +100,14 @@ public class VueModifierCours extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void enregistrerCours(int id)
+    private void enregistrerCours()
     {
-        Cours cours = new Cours(vueModifierCoursChampTitre.getText().toString(),
-                vueModifierCoursChampHeure.getHour() + ":" + vueModifierCoursChampHeure.getMinute(),id);
+        /*Cours cours = new Cours(vueModifierCoursChampTitre.getText().toString(),
+                vueModifierCoursChampHeure.getHour() + ":" + vueModifierCoursChampHeure.getMinute(),id);*/
+        cours.setTitre(vueModifierCoursChampTitre.getText().toString());
+        cours.setHeure(vueModifierCoursChampHeure.getHour() + ":" + vueModifierCoursChampHeure.getMinute());
 
-        coursDAO = CoursDAO.getInstance();
+        //coursDAO = CoursDAO.getInstance();
 
         coursDAO.modifierCours(cours);
 

@@ -1,11 +1,14 @@
 package yannroubeau.cgmatane.bibliotheque1.donnee;
 
+import android.app.AlarmManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,6 +54,7 @@ public class CoursDAO {
             String heure = curseur.getString(indexHeure);
             String titre = curseur.getString(indexTitre);
             cours = new Cours(titre, heure, id);
+
             this.listeCours.add(cours);
         }
 

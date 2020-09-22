@@ -22,7 +22,6 @@ import yannroubeau.cgmatane.bibliotheque1.modele.Cours;
 public class VueBibliotheque extends AppCompatActivity {
 
     protected ListView vueBibliothequeListeCours;
-    //protected List<HashMap<String,String>> listeCours;
     protected List<Cours> listeCours;
     protected CoursDAO coursDAO;
 
